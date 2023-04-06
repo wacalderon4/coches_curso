@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity //Se indica que se crea una entidad
 @Table(name="marca_coche") // Se muestra el nombre de la primera tabla de la BD
-public class MarcaCocheEntity {
+public class BrandCarEntity {
 
     /*
      * Id de la marca
