@@ -23,7 +23,10 @@ public class BrandCarController {
      */
     private final IBrandCarService iBrandCarService;
 
-
+    /**
+     * Devuelve lista de macas coche
+     * @return HttpCode OK con lista de marcas coche
+     */
     @GetMapping()
     public ResponseEntity<List<BrandCarPojo>> getAll() {
         return ResponseEntity.ok(iBrandCarService.getAll());
@@ -32,11 +35,22 @@ public class BrandCarController {
         // return new ResponseEntity<>(iBrandCarService.getAll(), HttpStatus.OK); Alternativa para crear Response Entity
     }
 
+    /**
+     * Devuelve una marca coche dado su id
+     * @param id Id de la marca coche a buscar
+     * @return HttpCode OK si la encuentra, HttpCode BadRequest de lo contrario
+     */
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<BrandCarPojo> getBrandCar(@PathVariable Integer id){
         return ResponseEntity.of(iBrandCarService.getBrandCar(id));
     }
 
+    /**
+     * Crea una nueva marca coche
+     * @param brandCarPojoNew Marca coche a crear
+     * @return HttpCode Created si la guarda correctamente
+     */
     @PostMapping
     public ResponseEntity<BrandCarPojo> save(@RequestBody BrandCarPojo brandCarPojoNew){
         try{
@@ -48,5 +62,26 @@ public class BrandCarController {
 
     }
 
+    /**
+     * Actualiza una marca coche
+     * @param brandCarPojoUpdate Marca coche a actualizar
+     * @return HttpCode Ok si actualiza correctamente
+     */
+
+    @PatchMapping
+    public ResponseEntity<BrandCarPojo> update(@RequestBody BrandCarPojo brandCarPojoUpdate){
+        return ResponseEntity.of(iBrandCarService.update(brandCarPojoUpdate));
+    }
+
+    /**
+     * Elimina una marca coche dado su id
+     * @param id Id de la marca coche a eliminar
+     * @return HttpCode Ok si la elimina, HttpCode NotFound si no existe
+     */
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer id){
+        return new ResponseEntity<>(this.iBrandCarService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+
+    }
 
 }
